@@ -1,0 +1,3 @@
+# 忽略名为 modules 的文件夹及其所有内容
+modules/
+node_modules/
