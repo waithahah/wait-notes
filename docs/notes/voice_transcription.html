@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<!--
+    PolyVoice 语音转录系统
+    
+    使用说明：
+    1. 请在 API_CONFIG 中配置正确的 baseUrl 和 apiKey
+    2. baseUrl: API服务器地址，例如 'http://localhost' 或 'https://your-api-domain.com'
+    3. apiKey: 您的API密钥，请联系服务提供商获取
+    
+    支持的音频格式：
+    WAV, MP3, FLAC, AMR, AAC, M4A, OGG, OPUS, AC3, AIFF, WMA
+    
+    API接口：/v1/voice/stt
+    请求方式：POST (multipart/form-data)
+    认证方式：Bearer Token
+-->
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyVoice - 全球语音转录</title>
+    <link rel="icon" type="image/png" href="PolyNex.svg">
+    <link rel="shortcut icon" type="image/png" href="PolyNex.svg">
+    <link rel="apple-touch-icon" href="PolyNex.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f1f5f9;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.2));
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            width: 50%;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+
+        .content-area {
+            width: 50%;
+            padding: 20px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+            max-height: 600px;
+            overflow: hidden;
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f8fafc;
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .audio-preview {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .audio-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .audio-icon {
+            font-size: 2rem;
+            color: #0ea5e9;
+        }
+
+        .audio-details h4 {
+            margin: 0 0 5px 0;
+            color: #374151;
+            font-size: 1rem;
+        }
+
+        .audio-details p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .audio-controls {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .file-remove {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-remove:hover {
+            background: #b91c1c;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* 可搜索下拉框样式 */
+        .searchable-select {
+            position: relative;
+        }
+
+        .select-input {
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: text;
+            transition: border-color 0.3s ease;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6b7280;
+            transition: transform 0.3s ease;
+        }
+
+        .select-arrow.open {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .select-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .select-option:last-child {
+            border-bottom: none;
+        }
+
+        .select-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .select-option.selected {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .select-option.hidden {
+            display: none;
+        }
+
+        .no-results {
+            padding: 12px 16px;
+            color: #9ca3af;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .form-control {
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6b7280;
+            transition: transform 0.3s ease;
+        }
+
+        .select-arrow.open {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .select-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .select-option:last-child {
+            border-bottom: none;
+        }
+
+        .select-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .select-option.selected {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .select-option.hidden {
+            display: none;
+        }
+
+        .no-results {
+            padding: 12px 16px;
+            color: #9ca3af;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox {
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-area {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 250px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .result-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 6px;
+            padding: 8px;
+            min-height: 200px;
+            max-height: 500px;
+            border: 1px solid #e5e7eb;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .transcript-segment {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 4px;
+            border-left: 2px solid #667eea;
+        }
+
+        .segment-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .timestamp {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-family: monospace;
+            font-size: 0.75rem;
+        }
+
+        .speaker {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-size: 0.75rem;
+        }
+
+        .segment-text {
+            color: #374151;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            color: #dc2626;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .success {
+            color: #059669;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #94a3b8;
+            padding: 60px 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .error-state {
+            text-align: center;
+            color: #dc2626;
+            padding: 40px 20px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .error-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #dc2626;
+        }
+
+        .error-detail {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #7f1d1d;
+        }
+
+        .error-tid {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: #991b1b;
+            font-family: monospace;
+        }
+
+        .segment-number {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .segment-time {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        .segment-speaker {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        .segment-language {
+            background: #f3e8ff;
+            color: #7c3aed;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        .segment-content {
+            color: #374151;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        /* 添加请求信息头部样式 */
+        .result-header {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .result-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .status-success {
+            color: #059669;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .result-tid {
+            color: #6b7280;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+
+        .result-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-cost {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .result-language {
+            color: #7c3aed;
+            font-size: 0.85rem;
+        }
+
+        .segment-lang {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar,
+            .content-area {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="PolyNex.svg" alt="PolyVoice Logo" class="header-logo">
+            <h1>PolyVoice 全球语音转录</h1>
+        </header>
+
+        <div class="main-content">
+            <!-- 左侧：语音文件区 -->
+            <div class="sidebar">
+                <!-- 文件上传区域 -->
+                <div class="upload-area" onclick="document.getElementById('audioFile').click()"
+                    ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                    <div class="upload-icon">🎵</div>
+                    <div class="upload-text">点击上传或拖拽语音文件</div>
+                    <div class="upload-hint">支持 WAV、MP3、FLAC、AMR、AAC、M4A、OGG、OPUS、AC3、AIFF、WMA、MP4 格式</div>
+                    <div class="upload-hint" style="font-size: 12px; margin-top: 4px;">文件最大 100MB</div>
+                </div>
+                <input type="file" id="audioFile" class="file-input"
+                    accept=".wav,.mp3,.flac,.amr,.aac,.m4a,.ogg,.opus,.ac3,.aiff,.wma"
+                    onchange="handleFileSelect(event)">
+
+                <!-- 音频预览区域 -->
+                <div id="audioPreview" class="audio-preview" style="display: none;">
+                    <button class="file-remove" onclick="removeFile()" title="移除文件">×</button>
+                    <div class="audio-info">
+                        <div class="audio-icon">🎵</div>
+                        <div class="audio-details">
+                            <h4 id="audioFileName">音频文件名</h4>
+                            <p id="audioFileSize">文件大小</p>
+                        </div>
+                    </div>
+                    <audio id="audioPlayer" class="audio-controls" controls>
+                        您的浏览器不支持音频播放。
+                    </audio>
+                </div>
+
+                <!-- 参数配置 -->
+                <div class="form-group">
+                    <label class="form-label">语言设置</label>
+                    <div class="searchable-select">
+                        <input type="text" id="languageInput" class="select-input" placeholder="搜索或选择语言..."
+                            oninput="filterLanguages()" onfocus="showLanguageDropdown()"
+                            onblur="hideLanguageDropdown()">
+                        <span class="select-arrow" id="languageArrow">▼</span>
+                        <div class="select-dropdown" id="languageDropdown"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">引擎设置</label>
+                    <div class="searchable-select">
+                        <input type="text" id="engineInput" class="select-input" placeholder="选择引擎..."
+                            oninput="filterEngines()" onfocus="showEngineDropdown()" onblur="hideEngineDropdown()"
+                            readonly>
+                        <span class="select-arrow" id="engineArrow">▼</span>
+                        <div class="select-dropdown" id="engineDropdown"></div>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableTimestamp" class="checkbox">
+                    <label for="enableTimestamp">显示时间戳</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableSpeaker" class="checkbox">
+                    <label for="enableSpeaker">说话人分离</label>
+                </div>
+
+                <!-- 执行按钮 -->
+                <button id="transcribeBtn" class="btn btn-primary" onclick="startTranscription()" disabled>
+                    开始转录
+                </button>
+            </div>
+
+            <!-- 右侧：转录结果区 -->
+            <div class="content-area">
+                <div class="result-area">
+                    <div class="result-title">转录结果</div>
+                    <div id="resultContent" class="result-content">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🎙️</div>
+                            <div>请上传语音文件并配置参数后开始转录</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentAudioFile = null;
+        let selectedLanguage = 'auto';
+        let selectedEngine = 'auto';
+        let isLanguageDropdownOpen = false;
+        let isEngineDropdownOpen = false;
+
+        // API配置
+        const API_CONFIG = {
+            baseUrl: 'http://localhost:8000', // 请根据实际情况修改
+            endpoint: '/v1/voice/stt',
+            apiKey: 'YOUR_API_KEY' // 请替换为实际的API Key
+        };
+
+        // 引擎列表
+        const engines = [
+            { code: 'auto', name: '自动识别' },
+            { code: 'general', name: '通用引擎' },
+            { code: 'minority', name: '小语种引擎' },
+            { code: 'emotion', name: '情感识别引擎' },
+            { code: 'chinese_precision', name: '高精度中文引擎' }
+        ];
+
+        // 语言列表
+        const languages = [
+            { code: 'auto', name: '自动识别' },
+            { code: 'en', name: '英语' },
+            { code: 'zh', name: '中文' },
+            { code: 'zh-TW', name: '中文(台湾)' },
+            { code: 'zh-WU', name: '中文(吴语)' },
+            { code: 'zh-SICHUAN', name: '中文(四川话)' },
+            { code: 'zh-SHANXI', name: '中文(山西话)' },
+            { code: 'zh-ANHUI', name: '中文(安徽话)' },
+            { code: 'zh-TIANJIN', name: '中文(天津话)' },
+            { code: 'zh-NINGXIA', name: '中文(宁夏话)' },
+            { code: 'zh-SHAANXI', name: '中文(陕西话)' },
+            { code: 'zh-HEBEI', name: '中文(河北话)' },
+            { code: 'zh-SHANDONG', name: '中文(山东话)' },
+            { code: 'zh-GUANGDONG', name: '中文(广东话)' },
+            { code: 'zh-SHANGHAI', name: '中文(上海话)' },
+            { code: 'zh-HUBEI', name: '中文(湖北话)' },
+            { code: 'zh-LIAONING', name: '中文(辽宁话)' },
+            { code: 'zh-GANSU', name: '中文(甘肃话)' },
+            { code: 'zh-FUJIAN', name: '中文(福建话)' },
+            { code: 'zh-HUNAN', name: '中文(湖南话)' },
+            { code: 'zh-HENAN', name: '中文(河南话)' },
+            { code: 'zh-YUNNAN', name: '中文(云南话)' },
+            { code: 'zh-MINNAN', name: '中文(闽南语)' },
+            { code: 'zh-WENZHOU', name: '中文(温州话)' },
+            { code: 'yue', name: '粤语' },
+            { code: 'de', name: '德语' },
+            { code: 'es', name: '西班牙语' },
+            { code: 'ru', name: '俄语' },
+            { code: 'ko', name: '韩语' },
+            { code: 'fr', name: '法语' },
+            { code: 'ja', name: '日语' },
+            { code: 'pt', name: '葡萄牙语' },
+            { code: 'tr', name: '土耳其语' },
+            { code: 'pl', name: '波兰语' },
+            { code: 'it', name: '意大利语' },
+            { code: 'uk', name: '乌克兰语' },
+            { code: 'nl', name: '荷兰语' },
+            { code: 'ar', name: '阿拉伯语' },
+            { code: 'ar-MA', name: '阿拉伯语(摩洛哥)' },
+            { code: 'ar-SA', name: '阿拉伯语(沙特)' },
+            { code: 'ar-EG', name: '阿拉伯语(埃及)' },
+            { code: 'ar-KW', name: '阿拉伯语(科威特)' },
+            { code: 'ar-LY', name: '阿拉伯语(利比亚)' },
+            { code: 'ar-JO', name: '阿拉伯语(约旦)' },
+            { code: 'ar-AE', name: '阿拉伯语(阿联酋)' },
+            { code: 'ar-LVT', name: '阿拉伯语(黎凡特)' },
+            { code: 'ca', name: '加泰罗尼亚语' },
+            { code: 'sv', name: '瑞典语' },
+            { code: 'id', name: '印度尼西亚语' },
+            { code: 'hi', name: '印地语' },
+            { code: 'fi', name: '芬兰语' },
+            { code: 'vi', name: '越南语' },
+            { code: 'he', name: '希伯来语' },
+            { code: 'el', name: '希腊语' },
+            { code: 'ms', name: '马来语' },
+            { code: 'cs', name: '捷克语' },
+            { code: 'ro', name: '罗马尼亚语' },
+            { code: 'da', name: '丹麦语' },
+            { code: 'hu', name: '匈牙利语' },
+            { code: 'ta', name: '泰米尔语' },
+            { code: 'ta-SG', name: '泰米尔语(新加坡)' },
+            { code: 'ta-LK', name: '泰米尔语(斯里兰卡)' },
+            { code: 'ta-IN', name: '泰米尔语(印度)' },
+            { code: 'ta-MY', name: '泰米尔语(马来西亚)' },
+            { code: 'no', name: '挪威语' },
+            { code: 'th', name: '泰语' },
+            { code: 'ur', name: '乌尔都语' },
+            { code: 'hr', name: '克罗地亚语' },
+            { code: 'bg', name: '保加利亚语' },
+            { code: 'lt', name: '立陶宛语' },
+            { code: 'la', name: '拉丁语' },
+            { code: 'mi', name: '毛利语' },
+            { code: 'ml', name: '马拉雅拉姆语' },
+            { code: 'cy', name: '威尔士语' },
+            { code: 'sk', name: '斯洛伐克语' },
+            { code: 'te', name: '泰卢固语' },
+            { code: 'fa', name: '波斯语' },
+            { code: 'lv', name: '拉脱维亚语' },
+            { code: 'bn', name: '孟加拉语' },
+            { code: 'sr', name: '塞尔维亚语' },
+            { code: 'az', name: '阿塞拜疆语' },
+            { code: 'sl', name: '斯洛文尼亚语' },
+            { code: 'kn', name: '卡纳达语' },
+            { code: 'et', name: '爱沙尼亚语' },
+            { code: 'mk', name: '马其顿语' },
+            { code: 'br', name: '布列塔尼语' },
+            { code: 'eu', name: '巴斯克语' },
+            { code: 'is', name: '冰岛语' },
+            { code: 'hy', name: '亚美尼亚语' },
+            { code: 'ne', name: '尼泊尔语' },
+            { code: 'mn', name: '蒙古语' },
+            { code: 'bs', name: '波斯尼亚语' },
+            { code: 'kk', name: '哈萨克语' },
+            { code: 'sq', name: '阿尔巴尼亚语' },
+            { code: 'sw', name: '斯瓦希里语' },
+            { code: 'gl', name: '加利西亚语' },
+            { code: 'mr', name: '马拉地语' },
+            { code: 'pa', name: '旁遮普语' },
+            { code: 'si', name: '僧伽罗语' },
+            { code: 'km', name: '高棉语' },
+            { code: 'sn', name: '修纳语' },
+            { code: 'yo', name: '约鲁巴语' },
+            { code: 'so', name: '索马里语' },
+            { code: 'af', name: '南非荷兰语' },
+            { code: 'oc', name: '奥克语' },
+            { code: 'ka', name: '格鲁吉亚语' },
+            { code: 'be', name: '白俄罗斯语' },
+            { code: 'tg', name: '塔吉克语' },
+            { code: 'sd', name: '信德语' },
+            { code: 'gu', name: '古吉拉特语' },
+            { code: 'am', name: '阿姆哈拉语' },
+            { code: 'yi', name: '意第绪语' },
+            { code: 'lo', name: '老挝语' },
+            { code: 'uz', name: '乌兹别克语' },
+            { code: 'fo', name: '法罗语' },
+            { code: 'ht', name: '海地克里奥尔语' },
+            { code: 'ps', name: '普什图语' },
+            { code: 'tk', name: '土库曼语' },
+            { code: 'nn', name: '新挪威语' },
+            { code: 'mt', name: '马耳他语' },
+            { code: 'sa', name: '梵语' },
+            { code: 'lb', name: '卢森堡语' },
+            { code: 'my', name: '缅甸语' },
+            { code: 'bo', name: '藏语' },
+            { code: 'tl', name: '他加禄语' },
+            { code: 'mg', name: '马达加斯加语' },
+            { code: 'as', name: '阿萨姆语' },
+            { code: 'tt', name: '鞑靼语' },
+            { code: 'haw', name: '夏威夷语' },
+            { code: 'ln', name: '林加拉语' },
+            { code: 'ha', name: '豪萨语' },
+            { code: 'ba', name: '巴什基尔语' },
+            { code: 'jw', name: '爪哇语' },
+            { code: 'su', name: '巽他语' },
+            { code: 'ug', name: '维吾尔语' },
+            { code: 'kab', name: '卡拜尔语' },
+            { code: 'ks', name: '克什米尔语' },
+            { code: 'fil', name: '菲律宾语' },
+            { code: 'or', name: '奥里亚语' },
+            { code: 'ky', name: '吉尔吉斯语' }
+        ];
+
+        // 初始化语言下拉框
+        function initLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            const input = document.getElementById('languageInput');
+
+            // 设置默认值
+            input.value = '自动识别';
+
+            // 创建选项
+            languages.forEach(lang => {
+                const option = document.createElement('div');
+                option.className = 'select-option';
+                option.textContent = lang.name;
+                option.dataset.code = lang.code;
+                option.onclick = () => selectLanguage(lang.code, lang.name);
+                dropdown.appendChild(option);
+            });
+
+            // 标记默认选中项
+            dropdown.querySelector('[data-code="auto"]').classList.add('selected');
+        }
+
+        // 选择语言
+        function selectLanguage(code, name) {
+            selectedLanguage = code;
+            document.getElementById('languageInput').value = name;
+
+            // 更新选中状态
+            document.querySelectorAll('.select-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`[data-code="${code}"]`).classList.add('selected');
+
+            hideLanguageDropdown();
+        }
+
+        // 显示下拉框
+        function showLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            const arrow = document.getElementById('languageArrow');
+            dropdown.style.display = 'block';
+            arrow.classList.add('open');
+        }
+
+        // 隐藏下拉框
+        function hideLanguageDropdown() {
+            setTimeout(() => {
+                const dropdown = document.getElementById('languageDropdown');
+                const arrow = document.getElementById('languageArrow');
+                dropdown.style.display = 'none';
+                arrow.classList.remove('open');
+            }, 150);
+        }
+
+        // 过滤语言
+        function filterLanguages() {
+            const input = document.getElementById('languageInput');
+            const filter = input.value.toLowerCase();
+            const options = document.querySelectorAll('.select-option');
+            let hasResults = false;
+
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    option.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    option.classList.add('hidden');
+                }
+            });
+
+            // 显示/隐藏无结果提示
+            let noResults = document.querySelector('.no-results');
+            if (!hasResults && filter) {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = '未找到匹配的语言';
+                    document.getElementById('languageDropdown').appendChild(noResults);
+                }
+                noResults.style.display = 'block';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        }
+
+        // 切换下拉框显示状态
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            if (dropdown.style.display === 'block') {
+                hideLanguageDropdown();
+            } else {
+                showLanguageDropdown();
+            }
+        }
+
+        // 开始转录
+        async function startTranscription() {
+            if (!currentAudioFile) {
+                alert('请先上传音频文件');
+                return;
+            }
+
+            const resultContent = document.getElementById('resultContent');
+            const transcribeBtn = document.getElementById('transcribeBtn');
+
+            // 显示加载状态
+            transcribeBtn.disabled = true;
+            transcribeBtn.textContent = '转录中...';
+
+            resultContent.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>正在转录音频，请稍候...</div>
+                </div>
+            `;
+
+            try {
+                // 准备FormData
+                const formData = new FormData();
+                formData.append('audio_file', currentAudioFile);
+
+                // 获取配置参数
+                const enableTimestamp = document.getElementById('enableTimestamp').checked;
+                const enableSpeaker = document.getElementById('enableSpeaker').checked;
+                const language = selectedLanguage === 'auto' ? '' : selectedLanguage;
+
+                // 添加可选参数
+                if (language) {
+                    formData.append('language', language);
+                }
+                formData.append('enable_timestamp', enableTimestamp.toString());
+                formData.append('enable_speaker', enableSpeaker.toString());
+
+                // 发送API请求
+                const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoint}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.code === '0' || result.code === 0) {
+                    // 转录成功，显示结果
+                    const transcriptionResults = formatTranscriptionResults(result.data, enableTimestamp, enableSpeaker);
+                    resultContent.innerHTML = transcriptionResults;
+                } else {
+                    // 转录失败，显示错误信息
+                    resultContent.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">❌</div>
+                            <div class="error-message">
+                                <div class="error-title">转录失败</div>
+                                <div class="error-detail">错误代码: ${result.code}</div>
+                                <div class="error-detail">错误信息: ${result.msg || '未知错误'}</div>
+                                <div class="error-tid">请求ID: ${result.tid || 'N/A'}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error('转录请求失败:', error);
+                resultContent.innerHTML = `
+                    <div class="error-state">
+                        <div class="error-icon">❌</div>
+                        <div class="error-message">
+                            <div class="error-title">网络错误</div>
+                            <div class="error-detail">请检查网络连接和API配置</div>
+                            <div class="error-detail">错误详情: ${error.message}</div>
+                        </div>
+                    </div>
+                `;
+            } finally {
+                // 恢复按钮状态
+                transcribeBtn.disabled = false;
+                transcribeBtn.textContent = '开始转录';
+            }
+        }
+
+        // 格式化转录结果
+        function formatTranscriptionResults(data, enableTimestamp, enableSpeaker) {
+            if (!data) {
+                return `
+                    <div class="error-state">
+                        <div class="error-icon">❌</div>
+                        <div class="error-message">
+                            <div class="error-title">转录结果为空</div>
+                            <div class="error-detail">未获取到有效的转录数据</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let html = '';
+
+            // 如果有分段数据且启用了时间戳，显示分段结果
+            if (data.segments && data.segments.length > 0 && enableTimestamp) {
+                data.segments.forEach((segment, index) => {
+                    html += `
+                        <div class="transcript-segment">
+                            <div class="segment-header">
+                                <span class="segment-number">#${index + 1}</span>
+                                <span class="segment-time">${segment.start} - ${segment.end}</span>
+                                ${enableSpeaker && segment.speaker ? `<span class="segment-speaker">${segment.speaker}</span>` : ''}
+                            </div>
+                            <div class="segment-content">${segment.text}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                // 显示完整文本
+                html = `
+                    <div class="transcript-segment">
+                        <div class="segment-header">
+                            <span class="segment-number">#1</span>
+                            <span class="segment-language">语言: ${data.language || '未知'}</span>
+                        </div>
+                        <div class="segment-content">${data.text || '无转录内容'}</div>
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        // 生成模拟转录结果
+        function generateMockTranscription(enableTimestamp, enableSpeaker) {
+            const segments = [
+                {
+                    start: '00:00:00',
+                    end: '00:00:05',
+                    speaker: '说话人A',
+                    text: '欢迎使用PolyVoice全球语音转录系统，这是一个功能强大的多语言语音识别工具。'
+                },
+                {
+                    start: '00:00:06',
+                    end: '00:00:12',
+                    speaker: '说话人B',
+                    text: '该系统支持超过100种语言和方言，包括中文普通话、各地方言以及世界主要语言。'
+                },
+                {
+                    start: '00:00:13',
+                    end: '00:00:20',
+                    speaker: '说话人A',
+                    text: '转录结果准确度高，支持时间戳标注和说话人分类功能，非常适合会议记录、访谈整理等场景。'
+                },
+                {
+                    start: '00:00:21',
+                    end: '00:00:28',
+                    speaker: '说话人B',
+                    text: '用户界面简洁美观，操作简单便捷，只需上传音频文件，选择语言，即可快速获得高质量的转录结果。'
+                },
+                {
+                    start: '00:00:29',
+                    end: '00:00:35',
+                    speaker: '说话人A',
+                    text: '感谢您选择PolyVoice，希望我们的服务能够为您的工作和学习带来便利。'
+                }
+            ];
+
+            let html = '';
+            segments.forEach((segment, index) => {
+                html += `
+                    <div class="transcript-segment">
+                        <div class="segment-header">
+                            ${enableTimestamp ? `<span class="timestamp">${segment.start} - ${segment.end}</span>` : ''}
+                            ${enableSpeaker ? `<span class="speaker">${segment.speaker}</span>` : ''}
+                        </div>
+                        <div class="segment-text">${segment.text}</div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        // 文件选择处理
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // 验证文件大小（100MB = 100 * 1024 * 1024 bytes）
+            const maxSize = 100 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('文件大小超过限制，请选择小于100MB的音频文件');
+                event.target.value = ''; // 清空文件选择
+                return;
+            }
+
+            // 验证文件类型
+            const allowedTypes = ['.wav', '.mp3', '.flac', '.amr', '.aac', '.m4a', '.ogg', '.opus', '.ac3', '.aiff', '.wma'];
+            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+
+            if (!allowedTypes.includes(fileExtension)) {
+                alert('不支持的文件格式，请选择音频文件');
+                return;
+            }
+
+            currentAudioFile = file;
+            displayAudioPreview(file);
+            document.getElementById('transcribeBtn').disabled = false;
+        }
+
+        // 显示音频预览
+        function displayAudioPreview(file) {
+            document.getElementById('audioPreview').style.display = 'block';
+            document.getElementById('audioFileName').textContent = file.name;
+            document.getElementById('audioFileSize').textContent = formatFileSize(file.size);
+
+            // 设置音频播放器
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioUrl = URL.createObjectURL(file);
+            audioPlayer.src = audioUrl;
+        }
+
+        // 移除文件
+        function removeFile() {
+            currentAudioFile = null;
+            document.getElementById('audioFile').value = '';
+            document.getElementById('audioPreview').style.display = 'none';
+            document.getElementById('transcribeBtn').disabled = true;
+
+            // 重置结果区域
+            document.getElementById('resultContent').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎙️</div>
+                    <div>请上传语音文件并配置参数后开始转录</div>
+                </div>
+            `;
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 生成模拟转录结果
+        function generateMockTranscription(enableTimestamp, enableSpeaker) {
+            const segments = [
+                {
+                    start: '00:00:00',
+                    end: '00:00:05',
+                    speaker: '说话人A',
+                    text: '欢迎使用PolyVoice全球语音转录系统，这是一个功能强大的多语言语音识别工具。'
+                },
+                {
+                    start: '00:00:06',
+                    end: '00:00:12',
+                    speaker: '说话人B',
+                    text: '该系统支持超过100种语言和方言，包括中文普通话、各地方言以及世界主要语言。'
+                },
+                {
+                    start: '00:00:13',
+                    end: '00:00:20',
+                    speaker: '说话人A',
+                    text: '转录结果准确度高，支持时间戳标注和说话人分类功能，非常适合会议记录、访谈整理等场景。'
+                },
+                {
+                    start: '00:00:21',
+                    end: '00:00:28',
+                    speaker: '说话人B',
+                    text: '用户界面简洁美观，操作简单便捷，只需上传音频文件，选择语言，即可快速获得高质量的转录结果。'
+                },
+                {
+                    start: '00:00:29',
+                    end: '00:00:35',
+                    speaker: '说话人A',
+                    text: '感谢您选择PolyVoice，希望我们的服务能够为您的工作和学习带来便利。'
+                }
+            ];
+
+            let html = '';
+            segments.forEach((segment, index) => {
+                html += `
+                    <div class="transcript-segment">
+                        <div class="segment-header">
+                            ${enableTimestamp ? `<span class="timestamp">${segment.start} - ${segment.end}</span>` : ''}
+                            ${enableSpeaker ? `<span class="speaker">${segment.speaker}</span>` : ''}
+                        </div>
+                        <div class="segment-text">${segment.text}</div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        // 显示转录结果
+        function displayTranscriptionResult(data) {
+            const enableTimestamp = document.getElementById('enableTimestamp').checked;
+            const enableSpeaker = document.getElementById('enableSpeaker').checked;
+
+            let resultHtml = '';
+
+            if (data.segments && enableTimestamp) {
+                // 显示分段结果
+                data.segments.forEach((segment, index) => {
+                    resultHtml += `
+                        <div class="transcript-segment">
+                            <div class="segment-header">
+                                <span class="timestamp">${segment.start} - ${segment.end}</span>
+                                ${enableSpeaker && segment.speaker ? `<span class="speaker">${segment.speaker}</span>` : ''}
+                            </div>
+                            <div class="segment-text">${segment.text}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                // 显示完整文本
+                resultHtml = `
+                    <div class="transcript-segment">
+                        <div class="segment-text">${data.text}</div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('resultContent').innerHTML = resultHtml;
+        }
+
+        // 显示加载状态
+        function showLoading(message = '正在处理中...') {
+            document.getElementById('resultContent').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>${message}</div>
+                </div>
+            `;
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            document.getElementById('resultContent').innerHTML = `
+                <div class="error">
+                    <strong>错误:</strong> ${message}
+                </div>
+            `;
+        }
+
+        // 初始化语言下拉框
+        function initLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            const input = document.getElementById('languageInput');
+
+            // 设置默认值
+            input.value = '自动识别';
+
+            // 创建选项
+            languages.forEach(lang => {
+                const option = document.createElement('div');
+                option.className = 'select-option';
+                option.textContent = lang.name;
+                option.dataset.code = lang.code;
+                option.onclick = () => selectLanguage(lang.code, lang.name);
+                dropdown.appendChild(option);
+            });
+
+            // 标记默认选中项
+            dropdown.querySelector('[data-code="auto"]').classList.add('selected');
+        }
+
+        // 选择语言
+        function selectLanguage(code, name) {
+            selectedLanguage = code;
+            document.getElementById('languageInput').value = name;
+
+            // 更新选中状态
+            document.querySelectorAll('.select-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`[data-code="${code}"]`).classList.add('selected');
+
+            hideLanguageDropdown();
+        }
+
+        // 显示下拉框
+        function showLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            const arrow = document.getElementById('languageArrow');
+            dropdown.style.display = 'block';
+            arrow.classList.add('open');
+        }
+
+        // 隐藏下拉框
+        function hideLanguageDropdown() {
+            setTimeout(() => {
+                const dropdown = document.getElementById('languageDropdown');
+                const arrow = document.getElementById('languageArrow');
+                dropdown.style.display = 'none';
+                arrow.classList.remove('open');
+            }, 150);
+        }
+
+        // 过滤语言
+        function filterLanguages() {
+            const input = document.getElementById('languageInput');
+            const filter = input.value.toLowerCase();
+            const options = document.querySelectorAll('.select-option');
+            let hasResults = false;
+
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    option.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    option.classList.add('hidden');
+                }
+            });
+
+            // 显示/隐藏无结果提示
+            let noResults = document.querySelector('.no-results');
+            if (!hasResults && filter) {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = '未找到匹配的语言';
+                    document.getElementById('languageDropdown').appendChild(noResults);
+                }
+                noResults.style.display = 'block';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        }
+
+        // 切换下拉框显示状态
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            if (dropdown.style.display === 'block') {
+                hideLanguageDropdown();
+            } else {
+                showLanguageDropdown();
+            }
+        }
+
+        // 拖拽处理函数
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const fileInput = document.getElementById('audioFile');
+                fileInput.files = files;
+                handleFileSelect({ target: fileInput });
+            }
+        }
+
+        // 引擎相关函数
+        function initEngineDropdown() {
+            const dropdown = document.getElementById('engineDropdown');
+            const input = document.getElementById('engineInput');
+
+            // 设置默认值
+            input.value = '自动识别';
+
+            // 创建选项
+            engines.forEach(engine => {
+                const option = document.createElement('div');
+                option.className = 'select-option';
+                option.textContent = engine.name;
+                option.dataset.code = engine.code;
+                option.onclick = () => selectEngine(engine.code, engine.name);
+                dropdown.appendChild(option);
+            });
+
+            // 标记默认选中项
+            dropdown.querySelector('[data-code="auto"]').classList.add('selected');
+        }
+
+        function selectEngine(code, name) {
+            selectedEngine = code;
+            document.getElementById('engineInput').value = name;
+
+            // 更新选中状态
+            document.querySelectorAll('#engineDropdown .select-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`#engineDropdown [data-code="${code}"]`).classList.add('selected');
+
+            hideEngineDropdown();
+        }
+
+        function showEngineDropdown() {
+            const dropdown = document.getElementById('engineDropdown');
+            const arrow = document.getElementById('engineArrow');
+            dropdown.style.display = 'block';
+            arrow.classList.add('open');
+            isEngineDropdownOpen = true;
+        }
+
+        function hideEngineDropdown() {
+            setTimeout(() => {
+                const dropdown = document.getElementById('engineDropdown');
+                const arrow = document.getElementById('engineArrow');
+                dropdown.style.display = 'none';
+                arrow.classList.remove('open');
+                isEngineDropdownOpen = false;
+            }, 150);
+        }
+
+        function filterEngines() {
+            const input = document.getElementById('engineInput');
+            const filter = input.value.toLowerCase();
+            const options = document.querySelectorAll('#engineDropdown .select-option');
+            let hasResults = false;
+
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    option.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    option.classList.add('hidden');
+                }
+            });
+
+            // 显示/隐藏无结果提示
+            let noResults = document.querySelector('#engineDropdown .no-results');
+            if (!hasResults && filter) {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = '未找到匹配的引擎';
+                    document.getElementById('engineDropdown').appendChild(noResults);
+                }
+                noResults.style.display = 'block';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            initLanguageDropdown();
+            initEngineDropdown();
+        });
+    </script>
+</body>
+
+</html>

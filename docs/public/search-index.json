@@ -1,0 +1,554 @@
+[
+  {
+    "title": "docker",
+    "category": "常规",
+    "path": "/notes\\dev\\docker",
+    "fullPath": "notes\\dev\\docker.md"
+  },
+  {
+    "title": "向前兼容",
+    "category": "常规",
+    "path": "/notes\\nvidia\\向前兼容",
+    "fullPath": "notes\\nvidia\\向前兼容.md"
+  },
+  {
+    "title": "1.python和java对比",
+    "category": "常规",
+    "path": "/notes\\Python\\1.python和java对比",
+    "fullPath": "notes\\Python\\1.python和java对比.md"
+  },
+  {
+    "title": "2.python学习",
+    "category": "常规",
+    "path": "/notes\\Python\\2.python学习",
+    "fullPath": "notes\\Python\\2.python学习.md"
+  },
+  {
+    "title": "3.创建虚拟环境",
+    "category": "常规",
+    "path": "/notes\\Python\\3.创建虚拟环境",
+    "fullPath": "notes\\Python\\3.创建虚拟环境.md"
+  },
+  {
+    "title": "4.celery",
+    "category": "常规",
+    "path": "/notes\\Python\\4.celery",
+    "fullPath": "notes\\Python\\4.celery.md"
+  },
+  {
+    "title": "torch",
+    "category": "常规",
+    "path": "/notes\\Python\\torch",
+    "fullPath": "notes\\Python\\torch.md"
+  },
+  {
+    "title": "uv",
+    "category": "常规",
+    "path": "/notes\\Python\\uv",
+    "fullPath": "notes\\Python\\uv.md"
+  },
+  {
+    "title": "并发",
+    "category": "常规",
+    "path": "/notes\\Python\\并发",
+    "fullPath": "notes\\Python\\并发.md"
+  },
+  {
+    "title": "并发编程",
+    "category": "常规",
+    "path": "/notes\\Python\\并发编程",
+    "fullPath": "notes\\Python\\并发编程.md"
+  },
+  {
+    "title": "conda copy",
+    "category": "常规",
+    "path": "/notes\\Python\\虚拟环境\\conda copy",
+    "fullPath": "notes\\Python\\虚拟环境\\conda copy.md"
+  },
+  {
+    "title": "conda",
+    "category": "常规",
+    "path": "/notes\\Python\\虚拟环境\\conda",
+    "fullPath": "notes\\Python\\虚拟环境\\conda.md"
+  },
+  {
+    "title": "配置清华源",
+    "category": "常规",
+    "path": "/notes\\Python\\虚拟环境\\配置清华源",
+    "fullPath": "notes\\Python\\虚拟环境\\配置清华源.md"
+  },
+  {
+    "title": "README",
+    "category": "常规",
+    "path": "/notes\\README",
+    "fullPath": "notes\\README.md"
+  },
+  {
+    "title": "claudecode",
+    "category": "常规",
+    "path": "/notes\\vibecoding\\claudecode",
+    "fullPath": "notes\\vibecoding\\claudecode.md"
+  },
+  {
+    "title": "readme",
+    "category": "常规",
+    "path": "/notes\\vibecoding\\skills\\readme",
+    "fullPath": "notes\\vibecoding\\skills\\readme.md"
+  },
+  {
+    "title": "配置",
+    "category": "常规",
+    "path": "/notes\\vscode配置\\配置",
+    "fullPath": "notes\\vscode配置\\配置.md"
+  },
+  {
+    "title": "vscode配置",
+    "category": "常规",
+    "path": "/notes\\vscode配置",
+    "fullPath": "notes\\vscode配置.md"
+  },
+  {
+    "title": "cozedify",
+    "category": "常规",
+    "path": "/notes\\临时\\cozedify",
+    "fullPath": "notes\\临时\\cozedify.md"
+  },
+  {
+    "title": "test",
+    "category": "常规",
+    "path": "/notes\\临时\\test",
+    "fullPath": "notes\\临时\\test.md"
+  },
+  {
+    "title": "docker",
+    "category": "常规",
+    "path": "/notes\\学习\\docker\\docker",
+    "fullPath": "notes\\学习\\docker\\docker.md"
+  },
+  {
+    "title": "ubuntu",
+    "category": "常规",
+    "path": "/notes\\学习\\docker\\ubuntu",
+    "fullPath": "notes\\学习\\docker\\ubuntu.md"
+  },
+  {
+    "title": "git",
+    "category": "常规",
+    "path": "/notes\\学习\\git\\git",
+    "fullPath": "notes\\学习\\git\\git.md"
+  },
+  {
+    "title": "ssh",
+    "category": "常规",
+    "path": "/notes\\学习\\linux\\ssh",
+    "fullPath": "notes\\学习\\linux\\ssh.md"
+  },
+  {
+    "title": "基本命令",
+    "category": "常规",
+    "path": "/notes\\学习\\linux\\基本命令",
+    "fullPath": "notes\\学习\\linux\\基本命令.md"
+  },
+  {
+    "title": "minio",
+    "category": "常规",
+    "path": "/notes\\学习\\minio\\minio",
+    "fullPath": "notes\\学习\\minio\\minio.md"
+  },
+  {
+    "title": "nginx",
+    "category": "常规",
+    "path": "/notes\\学习\\nginx\\nginx",
+    "fullPath": "notes\\学习\\nginx\\nginx.md"
+  },
+  {
+    "title": "ngrok",
+    "category": "常规",
+    "path": "/notes\\学习\\ngrok",
+    "fullPath": "notes\\学习\\ngrok.md"
+  },
+  {
+    "title": "redis",
+    "category": "常规",
+    "path": "/notes\\学习\\redis\\redis",
+    "fullPath": "notes\\学习\\redis\\redis.md"
+  },
+  {
+    "title": "stream",
+    "category": "常规",
+    "path": "/notes\\学习\\redis\\stream",
+    "fullPath": "notes\\学习\\redis\\stream.md"
+  },
+  {
+    "title": "learning",
+    "category": "常规",
+    "path": "/notes\\学习\\sql\\postgres\\learning",
+    "fullPath": "notes\\学习\\sql\\postgres\\learning.md"
+  },
+  {
+    "title": "sql",
+    "category": "常规",
+    "path": "/notes\\学习\\sql\\postgres\\sql",
+    "fullPath": "notes\\学习\\sql\\postgres\\sql.md"
+  },
+  {
+    "title": "qwen3-asr-1.7b",
+    "category": "常规",
+    "path": "/notes\\学习\\大模型\\qwen3-asr-1.7b",
+    "fullPath": "notes\\学习\\大模型\\qwen3-asr-1.7b.md"
+  },
+  {
+    "title": "大模型基础",
+    "category": "常规",
+    "path": "/notes\\学习\\大模型\\大模型基础",
+    "fullPath": "notes\\学习\\大模型\\大模型基础.md"
+  },
+  {
+    "title": "大模型应用",
+    "category": "常规",
+    "path": "/notes\\学习\\大模型\\大模型应用",
+    "fullPath": "notes\\学习\\大模型\\大模型应用.md"
+  },
+  {
+    "title": "部署",
+    "category": "常规",
+    "path": "/notes\\学习\\大模型\\部署",
+    "fullPath": "notes\\学习\\大模型\\部署.md"
+  },
+  {
+    "title": "导航",
+    "category": "常规",
+    "path": "/notes\\导航",
+    "fullPath": "notes\\导航.md"
+  },
+  {
+    "title": "ascend",
+    "category": "常规",
+    "path": "/notes\\推理架构\\ascend",
+    "fullPath": "notes\\推理架构\\ascend.md"
+  },
+  {
+    "title": "ubuntu22.04LTS",
+    "category": "常规",
+    "path": "/notes\\系统\\ubuntu22.04LTS",
+    "fullPath": "notes\\系统\\ubuntu22.04LTS.md"
+  },
+  {
+    "title": "文件上传",
+    "category": "常规",
+    "path": "/notes\\系统\\文件系统\\文件上传",
+    "fullPath": "notes\\系统\\文件系统\\文件上传.md"
+  },
+  {
+    "title": "视频下载",
+    "category": "常规",
+    "path": "/notes\\视频下载",
+    "fullPath": "notes\\视频下载.md"
+  },
+  {
+    "title": "中检",
+    "category": "常规",
+    "path": "/notes\\语音识别\\cpu部署\\中检",
+    "fullPath": "notes\\语音识别\\cpu部署\\中检.md"
+  },
+  {
+    "title": "readmel",
+    "category": "常规",
+    "path": "/notes\\语音识别\\dwsj正式环境\\readmel",
+    "fullPath": "notes\\语音识别\\dwsj正式环境\\readmel.md"
+  },
+  {
+    "title": "funasr",
+    "category": "常规",
+    "path": "/notes\\语音识别\\funasr",
+    "fullPath": "notes\\语音识别\\funasr.md"
+  },
+  {
+    "title": "适配说明",
+    "category": "常规",
+    "path": "/notes\\语音识别\\polyvoice\\ascend\\适配说明",
+    "fullPath": "notes\\语音识别\\polyvoice\\ascend\\适配说明.md"
+  },
+  {
+    "title": "适配说明",
+    "category": "常规",
+    "path": "/notes\\语音识别\\polyvoice\\nvidia\\cuda13\\适配说明",
+    "fullPath": "notes\\语音识别\\polyvoice\\nvidia\\cuda13\\适配说明.md"
+  },
+  {
+    "title": "接口文档",
+    "category": "常规",
+    "path": "/notes\\语音识别\\polyvoice\\接口文档",
+    "fullPath": "notes\\语音识别\\polyvoice\\接口文档.md"
+  },
+  {
+    "title": "队列系统高可用",
+    "category": "常规",
+    "path": "/notes\\语音识别\\队列系统高可用",
+    "fullPath": "notes\\语音识别\\队列系统高可用.md"
+  },
+  {
+    "title": "bamboo部署",
+    "category": "常规",
+    "path": "/notes\\部署记录\\bamboo\\bamboo部署",
+    "fullPath": "notes\\部署记录\\bamboo\\bamboo部署.md"
+  },
+  {
+    "title": "2",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\2",
+    "fullPath": "notes\\项目\\nex_fusion\\2.md"
+  },
+  {
+    "title": "baksql",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\baksql",
+    "fullPath": "notes\\项目\\nex_fusion\\baksql.md"
+  },
+  {
+    "title": "分片",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\分片",
+    "fullPath": "notes\\项目\\nex_fusion\\分片.md"
+  },
+  {
+    "title": "打包",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\打包",
+    "fullPath": "notes\\项目\\nex_fusion\\打包.md"
+  },
+  {
+    "title": "文件流转",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\文件流转",
+    "fullPath": "notes\\项目\\nex_fusion\\文件流转.md"
+  },
+  {
+    "title": "日志查看",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\日志查看",
+    "fullPath": "notes\\项目\\nex_fusion\\日志查看.md"
+  },
+  {
+    "title": "消息流转",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\消息流转",
+    "fullPath": "notes\\项目\\nex_fusion\\消息流转.md"
+  },
+  {
+    "title": "语音识别",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\语音识别",
+    "fullPath": "notes\\项目\\nex_fusion\\语音识别.md"
+  },
+  {
+    "title": "部署",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\部署",
+    "fullPath": "notes\\项目\\nex_fusion\\部署.md"
+  },
+  {
+    "title": "降噪",
+    "category": "常规",
+    "path": "/notes\\项目\\nex_fusion\\降噪",
+    "fullPath": "notes\\项目\\nex_fusion\\降噪.md"
+  },
+  {
+    "title": "1.插件广场",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\1.插件广场",
+    "fullPath": "notes\\项目\\qiko+\\1.插件广场.md"
+  },
+  {
+    "title": "10.D网研发环境qiko+环境更新步骤",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\10.D网研发环境qiko+环境更新步骤",
+    "fullPath": "notes\\项目\\qiko+\\10.D网研发环境qiko+环境更新步骤.md"
+  },
+  {
+    "title": "11.新建账号",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\11.新建账号",
+    "fullPath": "notes\\项目\\qiko+\\11.新建账号.md"
+  },
+  {
+    "title": "12.智能体类型",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\12.智能体类型",
+    "fullPath": "notes\\项目\\qiko+\\12.智能体类型.md"
+  },
+  {
+    "title": "13.上传文件",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\13.上传文件",
+    "fullPath": "notes\\项目\\qiko+\\13.上传文件.md"
+  },
+  {
+    "title": "14.token过期时间设置",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\14.token过期时间设置",
+    "fullPath": "notes\\项目\\qiko+\\14.token过期时间设置.md"
+  },
+  {
+    "title": "15.智能体设置默认变量值",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\15.智能体设置默认变量值",
+    "fullPath": "notes\\项目\\qiko+\\15.智能体设置默认变量值.md"
+  },
+  {
+    "title": "16.bamboo",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\16.bamboo",
+    "fullPath": "notes\\项目\\qiko+\\16.bamboo.md"
+  },
+  {
+    "title": "17.token计算",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\17.token计算",
+    "fullPath": "notes\\项目\\qiko+\\17.token计算.md"
+  },
+  {
+    "title": "18.常见问题",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\18.常见问题",
+    "fullPath": "notes\\项目\\qiko+\\18.常见问题.md"
+  },
+  {
+    "title": "19.知识库",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\19.知识库",
+    "fullPath": "notes\\项目\\qiko+\\19.知识库.md"
+  },
+  {
+    "title": "2.文件上传-jwt-apikey",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\2.文件上传-jwt-apikey",
+    "fullPath": "notes\\项目\\qiko+\\2.文件上传-jwt-apikey.md"
+  },
+  {
+    "title": "20.导出sql",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\20.导出sql",
+    "fullPath": "notes\\项目\\qiko+\\20.导出sql.md"
+  },
+  {
+    "title": "3.Qiko+部署文档",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\3.Qiko+部署文档",
+    "fullPath": "notes\\项目\\qiko+\\3.Qiko+部署文档.md"
+  },
+  {
+    "title": "4.poetry升级",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\4.poetry升级",
+    "fullPath": "notes\\项目\\qiko+\\4.poetry升级.md"
+  },
+  {
+    "title": "5.同步更新dify源码操作",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\5.同步更新dify源码操作",
+    "fullPath": "notes\\项目\\qiko+\\5.同步更新dify源码操作.md"
+  },
+  {
+    "title": "6.JWT认证体系",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\6.JWT认证体系",
+    "fullPath": "notes\\项目\\qiko+\\6.JWT认证体系.md"
+  },
+  {
+    "title": "7.migrations升级脚本",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\7.migrations升级脚本",
+    "fullPath": "notes\\项目\\qiko+\\7.migrations升级脚本.md"
+  },
+  {
+    "title": "8.自定义命令",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\8.自定义命令",
+    "fullPath": "notes\\项目\\qiko+\\8.自定义命令.md"
+  },
+  {
+    "title": "9.B网qiko+环境更新步骤",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\9.B网qiko+环境更新步骤",
+    "fullPath": "notes\\项目\\qiko+\\9.B网qiko+环境更新步骤.md"
+  },
+  {
+    "title": "flask框架学习",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\flask框架学习",
+    "fullPath": "notes\\项目\\qiko+\\flask框架学习.md"
+  },
+  {
+    "title": "开源修改",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\开源修改",
+    "fullPath": "notes\\项目\\qiko+\\开源修改.md"
+  },
+  {
+    "title": "智能体模板获取方式",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\智能体模板获取方式",
+    "fullPath": "notes\\项目\\qiko+\\智能体模板获取方式.md"
+  },
+  {
+    "title": "0.7.0",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\版本更新\\0.7.0",
+    "fullPath": "notes\\项目\\qiko+\\版本更新\\0.7.0.md"
+  },
+  {
+    "title": "0.7.1",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\版本更新\\0.7.1",
+    "fullPath": "notes\\项目\\qiko+\\版本更新\\0.7.1.md"
+  },
+  {
+    "title": "0.8.0",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\版本更新\\0.8.0",
+    "fullPath": "notes\\项目\\qiko+\\版本更新\\0.8.0.md"
+  },
+  {
+    "title": "0.9.0",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\版本更新\\0.9.0",
+    "fullPath": "notes\\项目\\qiko+\\版本更新\\0.9.0.md"
+  },
+  {
+    "title": "版本管理",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko+\\版本更新\\版本管理",
+    "fullPath": "notes\\项目\\qiko+\\版本更新\\版本管理.md"
+  },
+  {
+    "title": "消息队列流程",
+    "category": "常规",
+    "path": "/notes\\项目\\qiko_iva\\消息队列流程",
+    "fullPath": "notes\\项目\\qiko_iva\\消息队列流程.md"
+  },
+  {
+    "title": "readme",
+    "category": "常规",
+    "path": "/notes\\项目\\人脸聚类\\readme",
+    "fullPath": "notes\\项目\\人脸聚类\\readme.md"
+  },
+  {
+    "title": "部署",
+    "category": "常规",
+    "path": "/notes\\项目\\人脸聚类\\部署",
+    "fullPath": "notes\\项目\\人脸聚类\\部署.md"
+  },
+  {
+    "title": "部署",
+    "category": "常规",
+    "path": "/notes\\项目\\多维视界\\web\\部署",
+    "fullPath": "notes\\项目\\多维视界\\web\\部署.md"
+  },
+  {
+    "title": "readme",
+    "category": "常规",
+    "path": "/notes\\项目部署信息\\readme",
+    "fullPath": "notes\\项目部署信息\\readme.md"
+  }
+]

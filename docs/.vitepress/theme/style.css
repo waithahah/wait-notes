@@ -1,0 +1,58 @@
+/**
+ * Purple Gradient Modern Theme for Wait Notes
+ * Designed for Personal Branding & Knowledge Base
+ */
+
+:root {
+  /* Purple Brand Palette */
+  --vp-c-brand-1: #8b5cf6;
+  --vp-c-brand-2: #a855f7;
+  --vp-c-brand-3: #6366f1;
+  --vp-c-brand-soft: rgba(139, 92, 246, 0.12);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 50%, #6366f1 100%);
+
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  --vp-button-brand-hover-bg: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+  --vp-button-brand-active-bg: #6d28d9;
+}
+
+/* Light Theme Enhancements */
+:root:not(.dark) {
+  --vp-c-bg: #fdfbfd;
+  --vp-c-bg-alt: #f5f3ff;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-border: #ede9fe;
+}
+
+/* Dark Theme Enhancements */
+.dark {
+  --vp-c-bg: #0b0914;
+  --vp-c-bg-alt: #131024;
+  --vp-c-bg-elv: #191530;
+  --vp-c-border: rgba(139, 92, 246, 0.15);
+
+  --vp-home-hero-image-filter: drop-shadow(0 0 50px rgba(139, 92, 246, 0.35));
+}
+
+/* Layout Overrides for Full-bleed HomePage */
+.VPDoc {
+  padding: 0 !important;
+}
+
+.VPDoc .container {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.VPDoc .content {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+.VPContent {
+  padding-bottom: 0 !important;
+}

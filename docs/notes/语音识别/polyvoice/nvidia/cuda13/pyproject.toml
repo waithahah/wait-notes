@@ -1,0 +1,20 @@
+[project.optional-dependencies]
+gpu = [
+    "torch==2.7.0+cu128",
+    "torchaudio==2.7.0+cu128",
+    "torchvision==0.22.1+cu128",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest<8.0.0,>=7.4.3",
+    "mypy<2.0.0,>=1.8.0",
+    "ruff<1.0.0,>=0.2.2",
+    "pre-commit<4.0.0,>=3.6.2",
+    "types-passlib<2.0.0.0,>=1.7.7.20240106",
+    "coverage<8.0.0,>=7.4.3",
+]
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu128"
