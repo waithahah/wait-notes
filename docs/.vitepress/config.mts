@@ -80,10 +80,8 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '笔记', link: '/notes/README' },
-      { text: '项目', link: '/notes/项目/qiko+/3.Qiko+部署文档' },
-      { text: '归档', link: '/notes/导航' },
-      { text: '关于', link: '/notes/README' }
+      { text: '笔记', link: '/notes' },
+      { text: '关于', link: '/README' }
     ],
 
     sidebar: {
