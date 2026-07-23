@@ -58,9 +58,7 @@
 
         <nav class="nav-center">
           <a href="/" class="nav-item active">首页</a>
-          <a href="/notes/README" class="nav-item">笔记</a>
-          <a href="/notes/项目/qiko+/3.Qiko+部署文档" class="nav-item">项目</a>
-          <a href="/notes/导航" class="nav-item">归档</a>
+          <a href="/notes" class="nav-item">笔记</a>
           <a href="/notes/README" class="nav-item">关于</a>
         </nav>
 
