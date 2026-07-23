@@ -58,7 +58,7 @@
 
         <nav class="nav-center">
           <a href="/" class="nav-item active">首页</a>
-          <a href="/notes" class="nav-item">笔记</a>
+          <a href="/notes/" class="nav-item">笔记</a>
           <a href="/notes/README" class="nav-item">关于</a>
         </nav>
 
@@ -105,7 +105,7 @@
           </p>
 
           <div class="hero-actions">
-            <a href="/notes/README" class="btn-primary">
+            <a href="/notes/" class="btn-primary">
               <span class="btn-icon">💬</span>
               <span>开始阅读</span>
               <span class="arrow">➔</span>
@@ -183,7 +183,7 @@
 
       <!-- 3. 5 Feature Cards Row -->
       <section class="feature-cards-row">
-        <a href="/notes/学习/git/git" class="feature-card">
+        <a href="/notes/开发/git/git" class="feature-card">
           <div class="card-icon-box bg-purple-1">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
               <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.52L3.5 12 12 7.35 20.5 12 12 16.52zM3.5 14.85L12 19.5l8.5-4.65v2.3L12 21.8l-8.5-4.65v-2.3z"/>
@@ -196,7 +196,7 @@
           <span class="card-arrow">➔</span>
         </a>
 
-        <a href="/notes/vibecoding/claudecode" class="feature-card">
+        <a href="/notes/开发/vibecoding/claudecode" class="feature-card">
           <div class="card-icon-box bg-purple-2">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
               <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -209,7 +209,7 @@
           <span class="card-arrow">➔</span>
         </a>
 
-        <a href="/notes/项目/qiko+/3.Qiko+部署文档" class="feature-card">
+        <a href="/notes/产品/qiko+/3.Qiko+部署文档" class="feature-card">
           <div class="card-icon-box bg-pink-1">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
               <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
@@ -222,7 +222,7 @@
           <span class="card-arrow">➔</span>
         </a>
 
-        <a href="/notes/vscode配置/配置" class="feature-card">
+        <a href="/notes/开发/IDE/vscode配置/配置" class="feature-card">
           <div class="card-icon-box bg-indigo-1">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
               <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
@@ -235,7 +235,7 @@
           <span class="card-arrow">➔</span>
         </a>
 
-        <a href="/notes/临时/cozedify" class="feature-card">
+        <a href="/notes/产品/qiko+/5.同步更新dify源码操作" class="feature-card">
           <div class="card-icon-box bg-violet-1">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
               <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
@@ -258,11 +258,11 @@
               <span class="header-icon">📰</span>
               <h2 class="column-title">最新笔记</h2>
             </div>
-            <a href="/notes/README" class="more-link">查看全部 ➔</a>
+            <a href="/notes/" class="more-link">查看全部 ➔</a>
           </div>
 
           <div class="notes-list">
-            <a href="/notes/部署记录/bamboo/bamboo部署" class="note-item-card">
+            <a href="/notes/开发/bamboo/bamboo部署" class="note-item-card">
               <div class="note-thumb thumb-1">
                 <div class="thumb-decor decor-cube"></div>
               </div>
@@ -277,7 +277,7 @@
               </div>
             </a>
 
-            <a href="/notes/Python/1.python和java对比" class="note-item-card">
+            <a href="/notes/开发/Python/1.python和java对比" class="note-item-card">
               <div class="note-thumb thumb-2">
                 <div class="thumb-decor decor-ts"></div>
               </div>
@@ -301,11 +301,11 @@
               <span class="header-icon">🔮</span>
               <h2 class="column-title">热门项目</h2>
             </div>
-            <a href="/notes/项目/qiko+/3.Qiko+部署文档" class="more-link">查看全部 ➔</a>
+            <a href="/notes/产品/qiko+/3.Qiko+部署文档" class="more-link">查看全部 ➔</a>
           </div>
 
           <div class="projects-list">
-            <a href="/notes/项目/qiko+/3.Qiko+部署文档" class="project-item-card" style="text-decoration: none; color: inherit; display: block;">
+            <a href="/notes/产品/qiko+/3.Qiko+部署文档" class="project-item-card" style="text-decoration: none; color: inherit; display: block;">
               <div class="project-header">
                 <div class="project-logo">
                   <img src="/logo.png" alt="Wait Notes Logo" class="project-logo-img" />

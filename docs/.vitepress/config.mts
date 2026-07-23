@@ -80,8 +80,8 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '笔记', link: '/notes' },
-      { text: '关于', link: '/README' }
+      { text: '笔记', link: '/notes/' },
+      { text: '关于', link: '/notes/README' }
     ],
 
     sidebar: {
