@@ -27,7 +27,7 @@ cd /data/.mycluster/ && rm -r 10111/* && cd /data/polynex/face_cluster/cluster/ 
 cd /data/tianq/nex_fusion/api/core/face_cluster && bash start_restart_cluster.sh
 curl -X POST http://172.16.0.4:8181/restart_face_cluster
 
-20251105更新
+中检服务器人脸聚类20251105更新
 启动
 bash /data/wwtest/xujl/polynex_cluster/mycluster/start_mycluster10111.sh
 停止
